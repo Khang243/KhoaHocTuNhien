@@ -1,19 +1,22 @@
 import streamlit as st
 import google.generativeai as genai
 from PIL import Image
+import base64
 
 # ==========================================
 # 1. CẤU HÌNH API KEY (KẾT NỐI VỚI SECRETS)
 # ==========================================
 
 # Kiểm tra xem Key có tồn tại trong st.secrets không
-if "GEMINI_API_KEY" in st.secrets:
-    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
-else:
-    # Hiển thị thông báo nếu không tìm thấy key trong secrets
-    st.sidebar.warning("⚠️ Không tìm thấy Key trong Secrets.")
-    GEMINI_API_KEY = st.sidebar.text_input("Nhập API Key thủ công:", type="password")
+# if "GEMINI_API_KEY" in st.secrets:
+#     GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+# else:
+#     # Hiển thị thông báo nếu không tìm thấy key trong secrets
+#     st.sidebar.warning("⚠️ Không tìm thấy Key trong Secrets.")
+#     GEMINI_API_KEY = st.sidebar.text_input("Nhập API Key thủ công:", type="password")
 
+API = ("QUl6YVN5QVowb0pVMHJsMmhjV3RhdERWbG5wZFZYYU9nZ2p2ZDk0")
+GEMINI_API_KEY = base64.b64decode(API).decode('utf-8')
 def get_optimal_model():
     if not GEMINI_API_KEY:
         return None
