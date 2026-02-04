@@ -28,10 +28,14 @@ FINAL_API_KEY = user_key if user_key else DEFAULT_KEY
 def get_optimal_model(api_key):
     try:
         genai.configure(api_key=api_key)
-        return "models/gemini-1.5-flash" # Ưu tiên flash cho tốc độ nhanh
-    except: 
-        return "models/gemini-1.5-flash"
-
+        models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+        # Thứ tự ưu tiên: 2.0 -> 1.5 Flash -> 1.5 Pro
+        priority = ["models/gemini-2.0-flash-exp", "models/gemini-1.5-flash", "models/gemini-1.5-pro"]
+        for p in priority:
+            if p in models: return p
+        return models[0] if models else "models/gemini-1.5-flash"
+    except:
+        return None
 SELECTED_MODEL = get_optimal_model(FINAL_API_KEY)
 
 # ==========================================
