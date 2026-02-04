@@ -1,1 +1,17 @@
+# Bảo mật cho Streamlit
 .streamlit/
+secrets.toml
+
+# File rác Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Môi trường ảo
+venv/
+env/
+.env
+
+# Hệ thống
+.DS_Store
+Thumbs.db
